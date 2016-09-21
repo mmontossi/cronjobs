@@ -5,7 +5,7 @@
 
 # Cronjobs
 
-Extracts models cache logic into separate classes in rails.
+DSL to manage cronjobs in rails.
 
 
 ## Install
