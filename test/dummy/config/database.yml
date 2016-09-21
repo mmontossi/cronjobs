@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: cronjobs_development
+
+test:
+  adapter: postgresql
+  database: cronjobs_test
