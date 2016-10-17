@@ -7,7 +7,6 @@
 
 DSL to manage cronjobs in rails.
 
-
 ## Install
 
 Put this line in your Gemfile:
