@@ -23,7 +23,7 @@ $ bundle
 
 Generate the definitions file:
 ```
-bundle exec rails g cronjobs:install
+$ bundle exec rails g cronjobs:install
 ```
 
 Define your cronjobs inside:
@@ -41,15 +41,10 @@ Cronjobs.define do
 end
 ```
 
-In your deploy recipe use the rake task to write into crontab:
+In your deploy recipe use the rake task to update the cronjobs:
 ```
-bundle exec rake cronjobs:check
+$ bundle exec rake cronjobs:update
 ```
-
-
-## Contributing
-
-Because we've limited resources we'll mainly add features and keep a compatibility range close to what we need in our projects. However, contributions are more than welcome if someone wants to make any improvement.
 
 ## Credits
 

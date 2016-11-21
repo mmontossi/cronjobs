@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TasksTest < ActiveSupport::TestCase
+class TaskTest < ActiveSupport::TestCase
 
   setup do
     load File.expand_path('../../lib/tasks/cronjobs.rake', __FILE__)
@@ -11,16 +11,16 @@ class TasksTest < ActiveSupport::TestCase
     FileUtils.rm_rf Rails.root.join('tmp')
   end
 
-  test 'check' do
-    Cronjobs.expects(:write).once
-    Rake::Task['cronjobs:check'].invoke
+  test 'update' do
+    Cronjobs.expects(:update).once
+    Rake::Task['cronjobs:update'].invoke
 
     digest = Digest::MD5.file(Rails.root.join('config/cronjobs.rb'))
     digest_path = Rails.root.join('tmp/digests/cronjobs')
     FileUtils.mkdir_p digest_path.dirname
     File.write digest_path, digest
-    Cronjobs.expects(:write).never
-    Rake::Task['cronjobs:check'].invoke
+    Cronjobs.expects(:update).never
+    Rake::Task['cronjobs:update'].invoke
   end
 
 end

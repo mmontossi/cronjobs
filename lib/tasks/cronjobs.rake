@@ -1,5 +1,5 @@
 namespace :cronjobs do
-  task check: :environment do
-    Cronjobs.check
+  task update: :environment do
+    Cronjobs.update
   end
 end

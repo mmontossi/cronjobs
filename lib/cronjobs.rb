@@ -1,3 +1,4 @@
+require 'generators/cronjobs/install_generator'
 require 'cronjobs/dsl/actions'
 require 'cronjobs/proxy'
 require 'cronjobs/railtie'
@@ -16,39 +17,35 @@ module Cronjobs
       registry << [time, actions]
     end
 
-    def check
+    def update
       if current_digest != last_digest
-        write
-      end
-    end
-
-    def write
-      Open3.popen2(command) do |stdin, stdout, wait_thr|
-        if mailto.present?
-          stdin << "MAILTO=#{mailto}\n"
-        end
-        registry.each do |time, actions|
-          actions.each do |action|
-            stdin << "#{time} "
-            if env.present?
-              stdin << "#{env} "
-            end
-            stdin << "bash -lc \"cd #{Rails.root} && #{action} "
-            if output.present?
-              stdin << ">> #{output} 2>> #{output}"
-            else
-              stdin << "2>&1"
-            end
-            stdin << "\"\n"
+        Open3.popen2(command) do |stdin, stdout, wait_thr|
+          if mailto.present?
+            stdin << "MAILTO=#{mailto}\n"
           end
-        end
-        stdin.close
-        if wait_thr.value.success?
-          FileUtils.mkdir_p digest_path.dirname
-          File.write digest_path, current_digest
-          puts 'Crontab updated'
-        else
-          warn "Couldn't write crontab"
+          registry.each do |time, actions|
+            actions.each do |action|
+              stdin << "#{time} "
+              if env.present?
+                stdin << "#{env} "
+              end
+              stdin << "bash -lc \"cd #{Rails.root} && #{action} "
+              if output.present?
+                stdin << ">> #{output} 2>> #{output}"
+              else
+                stdin << "2>&1"
+              end
+              stdin << "\"\n"
+            end
+          end
+          stdin.close
+          if wait_thr.value.success?
+            FileUtils.mkdir_p digest_path.dirname
+            File.write digest_path, current_digest
+            puts 'Crontab updated'
+          else
+            warn "Couldn't write crontab"
+          end
         end
       end
     end

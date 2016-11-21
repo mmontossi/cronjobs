@@ -5,5 +5,9 @@ module Cronjobs
       load Rails.root.join('config/cronjobs.rb')
     end
 
+    rake_tasks do
+      load 'tasks/cronjobs.rake'
+    end
+
   end
 end
