@@ -19,7 +19,7 @@ Then bundle:
 $ bundle
 ```
 
-## Usage
+## Configuration
 
 Generate the definitions file:
 ```
@@ -40,6 +40,8 @@ Cronjobs.define do
 
 end
 ```
+
+## Usage
 
 In your deploy recipe use the rake task to update the cronjobs:
 ```
