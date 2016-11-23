@@ -7,6 +7,14 @@
 
 DSL to manage cronjobs in rails.
 
+## Why
+
+I did this gem to:
+
+- Enforce better practices removing unnecessary options.
+- User plain old school cron syntax.
+- Have close integration with rails.
+
 ## Install
 
 Put this line in your Gemfile:
