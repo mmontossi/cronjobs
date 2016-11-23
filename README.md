@@ -13,7 +13,7 @@ I did this gem to:
 
 - Enforce better practices removing unnecessary options.
 - User plain old school cron syntax.
-- Have close integration with rails.
+- Keep a close integration with rails.
 
 ## Install
 
