@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = 'cronjobs'
   s.version     = Cronjobs::VERSION
   s.authors     = ['mmontossi']
-  s.email       = ['mmontossi@buyin.io']
+  s.email       = ['mmontossi@gmail.com']
   s.homepage    = 'https://github.com/mmontossi/cronjobs'
   s.summary     = 'Cronjobs for rails.'
   s.description = 'DSL to manage cronjobs in rails.'
