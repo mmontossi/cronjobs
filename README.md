@@ -27,7 +27,9 @@ Then bundle:
 $ bundle
 ```
 
-## Configuration
+## Usage
+
+## Definitions
 
 Generate the definitions file:
 ```
@@ -43,13 +45,13 @@ Cronjobs.define do
   output Rails.root.join('log/cronjobs.log')
 
   every '* 1 * * *' do
-    rake 'certificates:check'
+    rake 'invoices:generate'
   end
 
 end
 ```
 
-## Usage
+### Rake Task
 
 In your deploy recipe use the rake task to update the cronjobs:
 ```
