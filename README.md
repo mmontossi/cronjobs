@@ -27,25 +27,36 @@ Then bundle:
 $ bundle
 ```
 
-## Usage
-
-### Definitions
+## Configuration
 
 Generate the definitions file:
 ```
 $ bundle exec rails g cronjobs:install
 ```
 
-Define your cronjobs inside:
+Set the global settings:
 ```ruby
 Cronjobs.define do
-
   env 'PATH=$PATH:/usr/local/bin'
   mailto 'test@mail.com'
   output Rails.root.join('log/cronjobs.log')
+end
+```
+
+## Usage
+
+### Definitions
+
+Add the jobs to the definitions file:
+```ruby
+Cronjobs.define do
 
   every '* 1 * * *' do
     rake 'invoices:generate'
+  end
+
+  every '0 5 * * *' do
+    runner 'User.clear_guests'
   end
 
 end
