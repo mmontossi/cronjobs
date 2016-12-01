@@ -37,9 +37,11 @@ $ bundle exec rails g cronjobs:install
 Set the global settings:
 ```ruby
 Cronjobs.define do
+
   env 'PATH=$PATH:/usr/local/bin'
   mailto 'test@mail.com'
   output Rails.root.join('log/cronjobs.log')
+
 end
 ```
 
