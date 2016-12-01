@@ -29,7 +29,7 @@ $ bundle
 
 ## Usage
 
-## Definitions
+### Definitions
 
 Generate the definitions file:
 ```
