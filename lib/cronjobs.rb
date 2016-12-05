@@ -1,7 +1,8 @@
-require 'generators/cronjobs/install_generator'
 require 'cronjobs/dsl/actions'
+require 'cronjobs/definitions'
 require 'cronjobs/proxy'
 require 'cronjobs/railtie'
+require 'cronjobs/version'
 require 'open3'
 
 module Cronjobs
@@ -10,11 +11,11 @@ module Cronjobs
     attr_accessor :env, :mailto, :output
 
     def define(&block)
-      Proxy.new(&block)
+      Proxy.new &block
     end
 
-    def add(time, actions)
-      registry << [time, actions]
+    def definitions
+      @definitions ||= Definitions.new
     end
 
     def update
@@ -23,20 +24,18 @@ module Cronjobs
           if mailto.present?
             stdin << "MAILTO=#{mailto}\n"
           end
-          registry.each do |time, actions|
-            actions.each do |action|
-              stdin << "#{time} "
-              if env.present?
-                stdin << "#{env} "
-              end
-              stdin << "bash -lc \"cd #{Rails.root} && #{action} "
-              if output.present?
-                stdin << ">> #{output} 2>> #{output}"
-              else
-                stdin << "2>&1"
-              end
-              stdin << "\"\n"
+          definitions.each do |time, action|
+            stdin << "#{time} "
+            if env.present?
+              stdin << "#{env} "
             end
+            stdin << "bash -lc \"cd #{Rails.root} && #{action} "
+            if output.present?
+              stdin << ">> #{output} 2>> #{output}"
+            else
+              stdin << "2>&1"
+            end
+            stdin << "\"\n"
           end
           stdin.close
           if wait_thr.value.success?
@@ -51,10 +50,6 @@ module Cronjobs
     end
 
     private
-
-    def registry
-      @registry ||= []
-    end
 
     def command
       'contrab -'

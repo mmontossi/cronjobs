@@ -18,7 +18,7 @@ module Cronjobs
     end
 
     def every(time, &block)
-      Cronjobs.add time, DSL::Actions.new(&block).to_a
+      Cronjobs.definitions.add time, DSL::Actions.new(&block).to_a
     end
 
   end

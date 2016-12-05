@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CronjobsTest < ActiveSupport::TestCase
+class DefinitionTest < ActiveSupport::TestCase
 
   teardown do
     FileUtils.rm_rf Rails.root.join('tmp')
