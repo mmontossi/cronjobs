@@ -1,7 +1,7 @@
 module Cronjobs
   class Railtie < Rails::Railtie
 
-    config.after_initialize do
+    config.before_initialize do
       load Rails.root.join('config/cronjobs.rb')
     end
 
